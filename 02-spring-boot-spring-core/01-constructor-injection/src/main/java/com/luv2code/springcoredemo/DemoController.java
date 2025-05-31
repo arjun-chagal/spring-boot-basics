@@ -6,15 +6,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class DemoController {
+class DemoController{
 
-    private final Coach myCoach;
-   @Autowired
-    public DemoController(Coach coach){
-        myCoach = coach;
+    private Coach myCoach;
+
+    @Autowired
+    DemoController(Coach theCoach){
+        myCoach = theCoach;
     }
-@GetMapping("/dailyworkout")
-    public String gailyWorkout(){
+
+    @GetMapping("/dailyworkout")
+    public String getDailyWorkout(){
         return myCoach.getDailyWorkout();
     }
 }
