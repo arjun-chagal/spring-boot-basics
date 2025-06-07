@@ -9,6 +9,9 @@ public class Student {
 
 
     //add columns
+
+
+    //id and generated value annots are only for primary keys
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
@@ -27,7 +30,7 @@ public class Student {
 
 
     //add arg constructor
-    Student(String firstName, String lastName, String email){
+    public Student(String firstName, String lastName, String email){
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -36,15 +39,17 @@ public class Student {
 
 
 
+//if a class doesnt have any xplicitely defined constructor, java provides a no arg constructor for free.
+//but if you explicitely define a constructor, java does not provide that default no arg constructor
 
     //add a no arg constructor
     public Student(){
-        System.out.println("somehing");
+
     }
 
 
     //add getters and setters
-    int getId(){
+    public int getId(){
         return id;
     }
 
