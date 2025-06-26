@@ -23,10 +23,16 @@ public class StudentDAOImpl implements StudentDAO{
     }
 
     //save a java object item using the entityManager
+
     @Override
     @Transactional
     public void save(Student theStudent){
         entityManager.persist(theStudent);
+    }
 
+    // find a student object
+    @Override
+    public void findById(Student theStudent){
+        entityManager.find(Student.class, theStudent);
     }
 }
