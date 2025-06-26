@@ -56,11 +56,11 @@ public class Student {
     void setId(int id){
         this.id = id;
     }
-    String getFirstName(){
+    public String getFirstName(){
         return firstName;
     }
 
-    void setFirstName(String firstName){
+    public void setFirstName(String firstName){
         this.firstName = firstName;
     }
 

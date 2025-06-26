@@ -32,7 +32,7 @@ public class StudentDAOImpl implements StudentDAO{
 
     // find a student object
     @Override
-    public void findById(Student theStudent){
-        entityManager.find(Student.class, theStudent);
+    public Student findById(int id){
+        return entityManager.find(Student.class, id);
     }
 }
