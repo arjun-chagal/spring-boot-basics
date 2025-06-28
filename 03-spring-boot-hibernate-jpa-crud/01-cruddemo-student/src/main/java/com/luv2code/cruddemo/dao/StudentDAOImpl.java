@@ -58,4 +58,10 @@ public class StudentDAOImpl implements StudentDAO{
         tempQuery.setParameter("lastN", lName);
         return tempQuery.getResultList();
     }
+
+    @Override
+    @Transactional
+    public void update(Student student){
+        entityManager.merge(student);
+    }
 }

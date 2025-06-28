@@ -20,13 +20,19 @@ public class CruddemoApplication {
 	public CommandLineRunner commandLineRunner(StudentDAO studentDAO){
 		return runner ->{
 
-			/*for(Student stud :readAll(studentDAO)){
+			/*printing the entire table
+			for(Student stud :readAll(studentDAO)){
 				System.out.println(stud);
 			}*/
 
+			/*retrieving student from the inputted last name
 			for(Student stud: getStudentFromLastName(studentDAO, "Chagal")){
 				System.out.println(stud);
-			}
+			}*/
+
+			updateStudent(studentDAO, 4);
+
+
 		};
 	}
 
@@ -76,8 +82,26 @@ public class CruddemoApplication {
 	}
 
 	List<Student> getStudentFromLastName(StudentDAO std, String lName){
-
 		return std.findByLastName(lName);
+	}
+
+	void updateStudent(StudentDAO studentDAO, int id){
+
+		//find the student obj with the inputted id
+		System.out.println("finding the student object with the id: "+id);
+		Student tempStud = studentDAO.findById(id);
+		System.out.println("The unchanged student object is: "+tempStud);
+
+		//set the new value; this change is only reflected in the java application memory, and does NOT affect the sql table
+		System.out.println("Updating the first name to: Pinnu");
+		tempStud.setFirstName("Pinnu");
+
+		//update the value to the table
+		System.out.println("Updating this into the table");
+		studentDAO.update(tempStud);
+
+		//displaying
+		System.out.println("The updated student object is: "+tempStud);
 
 	}
 

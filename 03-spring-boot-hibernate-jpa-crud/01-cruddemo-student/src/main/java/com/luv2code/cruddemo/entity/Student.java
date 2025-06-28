@@ -39,7 +39,7 @@ public class Student {
 
 
 
-//if a class doesnt have any xplicitely defined constructor, java provides a no arg constructor for free.
+//if a class doesnt have any explicitly defined constructor, java provides a no arg constructor for free.
 //but if you explicitely define a constructor, java does not provide that default no arg constructor
 
     //add a no arg constructor

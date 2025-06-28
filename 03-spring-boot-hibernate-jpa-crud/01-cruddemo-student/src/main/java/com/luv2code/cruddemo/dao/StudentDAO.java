@@ -6,11 +6,13 @@ import java.util.List;
 
 public interface StudentDAO {
 
-    public void save(Student theStudent);
+    void save(Student theStudent);
 
-    public Student findById(int id);
+    Student findById(int id);
 
-    public List<Student> findAll();
+    List<Student> findAll();
 
-    public List<Student>findByLastName(String lastName);
+    List<Student>findByLastName(String lastName);
+
+    void update(Student student);
 }
