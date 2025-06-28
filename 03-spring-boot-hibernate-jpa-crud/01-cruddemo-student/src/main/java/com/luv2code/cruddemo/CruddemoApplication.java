@@ -7,6 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.List;
+
 @SpringBootApplication
 public class CruddemoApplication {
 
@@ -17,13 +19,18 @@ public class CruddemoApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(StudentDAO studentDAO){
 		return runner ->{
-			//createStudent(studentDAO);
-			//createMultipleStudents(studentDAO);
-			readStudent(studentDAO);
+
+			/*for(Student stud :readAll(studentDAO)){
+				System.out.println(stud);
+			}*/
+
+			for(Student stud: getStudentFromLastName(studentDAO, "Chagal")){
+				System.out.println(stud);
+			}
 		};
 	}
 
-/*
+
 	private void createMultipleStudents(StudentDAO studentDAO) {
 		//create multiple student objects
 		Student temp1student = new Student("Arjun", "Chagal", "connie@gmail.com");
@@ -36,7 +43,7 @@ public class CruddemoApplication {
 		studentDAO.save(temp2student);
 		studentDAO.save(temp3student);
 	}
-*/
+
 
 
 	public void readStudent(StudentDAO studentDAO){
@@ -54,7 +61,7 @@ public class CruddemoApplication {
 		System.out.println("The student first name is: "+stud.getFirstName()+" , the last name is: "+stud.getLastName()+" ,and the email is "+stud.getEmail());
 	}
 
-	/*public void createStudent(StudentDAO studentDAO){
+	public void createStudent(StudentDAO studentDAO){
 		//create a new student obj
 		Student tempStudent = new Student("Cake", "Paul", "cakepaul123@gmail.com");
 
@@ -64,5 +71,55 @@ public class CruddemoApplication {
 		//display id of the saved student
 		System.out.println("Saved student. The generated id is: "+tempStudent.getId());
 	}
-*/
+	List<Student> readAll(StudentDAO studentDAO){
+		return studentDAO.findAll();
+	}
+
+	List<Student> getStudentFromLastName(StudentDAO std, String lName){
+
+		return std.findByLastName(lName);
+
+	}
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
