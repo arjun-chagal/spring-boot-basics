@@ -30,8 +30,9 @@ public class CruddemoApplication {
 				System.out.println(stud);
 			}*/
 
-			updateStudent(studentDAO, 4);
+			//updateStudent(studentDAO, 4);
 
+			deleteStudent(studentDAO, 3);
 
 		};
 	}
@@ -102,6 +103,23 @@ public class CruddemoApplication {
 
 		//displaying
 		System.out.println("The updated student object is: "+tempStud);
+
+	}
+
+
+	void deleteStudent(StudentDAO studentDAO, int id){
+		//verifying the id
+		System.out.println("The given id is: "+id);
+
+		//finding the student obj with the given id
+		Student stud = studentDAO.findById(id);
+		System.out.println("The student object is: "+stud);
+
+		//deleting the obj
+		studentDAO.delete(stud);
+
+		//completion message
+		System.out.println("The given object is deleted.");
 
 	}
 

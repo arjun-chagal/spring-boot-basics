@@ -15,4 +15,6 @@ public interface StudentDAO {
     List<Student>findByLastName(String lastName);
 
     void update(Student student);
+
+    int delete(Student student);
 }
