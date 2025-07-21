@@ -31,8 +31,6 @@ public class StudentRestController {
         if(studentId > theStudents.size() || studentId < 0){
 
 
-
-
             throw new StudentNotFoundException("error in finding student of id: "+studentId);
         }
         return theStudents.get(studentId);
@@ -48,6 +46,21 @@ public class StudentRestController {
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
 
     }
+//can also write another custom exception handler to handle bad requests;
+// example, when the studentId is inputed as a string instead of a number
+
+    @ExceptionHandler
+    public ResponseEntity<StudentErrorResponse> handleGenericExceptions(Exception exc){
+
+        StudentErrorResponse error = new StudentErrorResponse();
+        error.setStatus(HttpStatus.BAD_REQUEST.value());
+        error.setMessage(exc.getMessage());
+        error.setTimeStamp(System.currentTimeMillis());
+
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+
 
 
 }
