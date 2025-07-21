@@ -36,31 +36,9 @@ public class StudentRestController {
         return theStudents.get(studentId);
     }
 
-    @ExceptionHandler
-    public ResponseEntity<StudentErrorResponse> displayError(StudentNotFoundException exc){
-        StudentErrorResponse error = new StudentErrorResponse();
-        error.setStatus(HttpStatus.NOT_FOUND.value());
-        error.setMessage(exc.getMessage());
-        error.setTimeStamp(System.currentTimeMillis());
 
-        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
-
-    }
 //can also write another custom exception handler to handle bad requests;
 // example, when the studentId is inputed as a string instead of a number
-
-    @ExceptionHandler
-    public ResponseEntity<StudentErrorResponse> handleGenericExceptions(Exception exc){
-
-        StudentErrorResponse error = new StudentErrorResponse();
-        error.setStatus(HttpStatus.BAD_REQUEST.value());
-        error.setMessage(exc.getMessage());
-        error.setTimeStamp(System.currentTimeMillis());
-
-        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
-    }
-
-
 
 
 }
