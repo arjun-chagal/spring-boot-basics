@@ -1,7 +1,6 @@
 package com.crud.employees.employees_crud.controller;
 
 
-import com.crud.employees.employees_crud.DAO.EmployeeDAO;
 import com.crud.employees.employees_crud.Entity.Employee;
 import com.crud.employees.employees_crud.Service.EmployeeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -30,11 +30,9 @@ public class Rest {
     @GetMapping("/employees/{employeeId}")
     public Employee retrieveById(@PathVariable int employeeId){
 
-        Employee theEmployee = employeeService.findById(employeeId);
-        if(theEmployee == null){
-            throw new RuntimeException("Cannot find employee with the ID: "+employeeId);
-        }
-        return theEmployee;
+        Optional<Employee> theEmployee = employeeService.findById(employeeId);
+
+        return theEmployee.orElse(null);
     }
 
     //read(cRud)
@@ -65,16 +63,16 @@ public class Rest {
     @PatchMapping("/employees/{employeeId}")
     public Employee patchEmployee(@PathVariable int employeeId, @RequestBody Map<String, Object> patchPayload){ /* patchPayload is not of type "Employee", because not all Employee fields like firstName, email, etc would be expected to be filled in patchPayload*/
 
-        Employee theEmployee = employeeService.findById(employeeId);
+        Optional<Employee> theEmployee = employeeService.findById(employeeId);
         //Exceptions if id is passed in patchPayload, or if theEmployee is not found
-        if(theEmployee == null){
+        if(theEmployee.isEmpty()){
             throw new RuntimeException("the employee with the id "+employeeId+" was not found");
         }
         if(patchPayload.containsKey("id")){
             throw new RuntimeException("patch payload CANNOT contain id value");
         }
 
-        Employee tempEmployee = apply(patchPayload, theEmployee);
+        Employee tempEmployee = apply(patchPayload, theEmployee.orElse(null));
         Employee dbEmployee = employeeService.save(tempEmployee);
 
         return dbEmployee;
@@ -85,9 +83,9 @@ public class Rest {
     @DeleteMapping("/employees/{employeeId}")
     public String deleteEmployee(@PathVariable int employeeId){
 
-        Employee theEmployee = employeeService.findById(employeeId);
+        Optional<Employee> theEmployee = employeeService.findById(employeeId);
 
-        if(theEmployee == null){
+        if(theEmployee.isEmpty()){
             throw new RuntimeException("You've passed an invalid employee id");
         }
         employeeService.deleteById(employeeId);
